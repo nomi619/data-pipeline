@@ -3,8 +3,6 @@ volumes:
     driver: local
   kestra-data:
     driver: local
-  proddb-data:
-    driver: local
 
 services:
   postgres:
@@ -21,20 +19,6 @@ services:
       timeout: 10s
       retries: 10
 
-  proddb:
-    image: postgres
-    volumes:
-      - proddb-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: production
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-    ports:
-      - "5432:5432"
-    command:
-      - "postgres"
-      - "-c"
-      - "wal_level=logical"
 
   kestra:
     image: kestra/kestra:latest-full
