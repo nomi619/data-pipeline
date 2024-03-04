@@ -1,0 +1,21 @@
+id: push_to_git
+namespace: prod
+
+tasks:
+  - id: working_directory
+    type: io.kestra.core.tasks.flows.WorkingDirectory
+    tasks:
+
+      - id: clone_main_branch
+        type: io.kestra.plugin.git.Clone
+        branch: main
+        url: https://github.com/nomi619/data-pipeline
+        
+      - id: push_flows_on_kestra_branch
+        type: io.kestra.plugin.git.Push
+        branch: kestra
+        commitMessage: flow update at {{ now() }}
+        flows:
+          gitDirectory: kestra/flows
+        password: "{{ secret('GITHUB_ACCESS_TOKEN') }}"
+        username: noman619

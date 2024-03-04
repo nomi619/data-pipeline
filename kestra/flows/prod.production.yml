@@ -1,0 +1,13 @@
+id: production
+namespace: prod
+tasks:
+- id: "capture_postgres_cdc"
+  type: "io.kestra.plugin.debezium.postgres.Capture"
+  hostname: proddb
+  port: "5432"
+  username: admin
+  password: admin
+  maxRecords: 2
+  database: production
+  pluginName: PGOUTPUT
+  snapshotMode: NEVER
