@@ -5,6 +5,7 @@ volumes:
 services:
   proddb:
     image: postgres
+    container_name: proddb
     volumes:
       - proddb-data:/var/lib/postgresql/data
     environment:
@@ -17,3 +18,9 @@ services:
       - "postgres"
       - "-c"
       - "wal_level=logical"
+    networks:
+      - kestra_default
+
+networks:
+  kestra_default:
+    external: true
